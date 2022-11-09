@@ -1,6 +1,7 @@
 from pico2d import *
 import game_framework
-import def_obj
+#import def_obj
+import play_state
 
 image = None
 
@@ -25,7 +26,7 @@ def handle_events():
         elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
             game_framework.quit()
         elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
-            game_framework.change_state(def_obj)
+            game_framework.change_state(play_state)
 def update():
     pass
 
