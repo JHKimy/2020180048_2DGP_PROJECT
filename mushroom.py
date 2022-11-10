@@ -10,6 +10,8 @@ class Mushroom:
         self.dirX = 2
         self.dirY = 0
 
+    def get_bb(self):
+        return self.x - 10, self.y - 40, self.x + 20, self.y + 20
     def update(self):
         # self.frame = (self.frame + 1) % 3
         self.x -= self.dirX * 1
@@ -22,3 +24,4 @@ class Mushroom:
 
     def draw(self):
         self.image.clip_draw(0, 0, 48, 58, self.x, self.y)
+        draw_rectangle(*self.get_bb())
