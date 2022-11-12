@@ -1,7 +1,6 @@
 from pico2d import *
 import background
 import collide_check
-import game_world
 import game_framework
 
 TIME_PER_ACTION = 0.5
@@ -13,14 +12,14 @@ frame_num = 4
 
 
 #1 이벤트 정의
-RD, LD, RU, LU, Z, ZU, TIMER = range(7)
-event_name = ['RD', 'LD', 'RU', 'LU', 'Z', 'ZU','TIMER']
+RD, LD, RU, LU, ZD, ZU, TIMER = range(7)
+event_name = ['RD', 'LD', 'RU', 'LU', 'ZD', 'ZU', 'TIMER']
 
 key_event_table = {
 
     (SDL_KEYDOWN, SDLK_RIGHT): RD,
     (SDL_KEYDOWN, SDLK_LEFT) : LD,
-    (SDL_KEYDOWN, SDLK_z)    :  Z,
+    (SDL_KEYDOWN, SDLK_z)    : ZD,
     (SDL_KEYUP, SDLK_RIGHT)  : RU,
     (SDL_KEYUP, SDLK_LEFT)   : LU,
     (SDL_KEYUP, SDLK_z)      : ZU
@@ -39,17 +38,60 @@ class IDLE:
         #     self.fire_ball()
         pass
 
-    def do(self):
-        self.timer -= 1
-        if self.timer == 0:
-            self.add_event(TIMER)
+
+
+
+    def do(self,event):
+        if event == ZD:
+            if self.isjump == False:
+                self.isjump = True
+                if self.jump == 0:
+                    self.jump = 1
+
+                if self.jump == 1:
+                    if self.face_dir == 1:
+                        self.state = 5
+                    if self.face_dir == -1:
+                        self.state = 4
+                    self.y += (self.mass * self.velocity * self.velocity) * 0.01
+
+                    if self.velocity < 0:
+                        self.jump = -1
+
+                elif self.jump == -1:
+                    self.y -= (self.mass * self.velocity * self.velocity) * 0.01
+
+                    if self.y <= 250:
+
+                        if self.face_dir == 1:
+                            self.state = 7
+                        elif self.face_dir == -1:
+                            self.state = 6
+
+                    if self.y <= 90:
+                        self.jump = 0
+                        self.isjump = False
+                        self.y = 90
+                        self.velocity = 20
+
+                else:
+                    self.y = 90
+
+                self.frame = (self.frame + 1) % 1
+
+                self.x = clamp(0, self.x, 1600)
+
+                self.velocity -= 1
+
+
 
     def draw(self):
         if self.face_dir == 1:
             self.image.clip_draw(1 * 100, 300, 100, 100, self.x, self.y)
-        else:
+        elif self.face_dir ==-1:
             self.image.clip_draw(0 * 100, 200, 100, 100, self.x, self.y)
-
+        elif self.isjump == True :
+            self.image.clip_draw(int(self.frame) * 100, self.state*100, 100, 100, self.x, self.y)
 
 PIXEL_PER_METER = (10.0 / 0.3) # 10 pixel 30 cm
 RUN_SPEED_KMPH = 20.0 # Km / Hour
@@ -86,73 +128,62 @@ class RUN:
         elif self.dir == 1:
             self.image.clip_draw(int(self.frame)*100, 100, 100, 100, self.x, self.y)
 
-class ZUMP:
-    def enter(self, event):
-        if self.isjump == False:
-            self.isjump = True
-            if event == Z:
-                if self.jump == 0:
-                    self.jump = 1
-
-        # if event == Z:
-        #     if self.jump == 0:
-        #         self.jump = 1
-        # elif event == ZU:
-        #     self.jump = 0
-    def exit(self, event):
-        # self.face_dir = self.dir
-        pass
-
-    def do(self):
-        # if self.jump == 1:
-        # self.y += (self.mass * self.velocity * self.velocity) / 0.01
-        if self.jump == 1:
-            if self.face_dir == 1:
-                self.state = 5
-            if self.face_dir == -1:
-                self.state = 4
-            # self.y += 7
-            self.y += (self.mass * self.velocity * self.velocity) * 0.01
-
-            # if self.y >= 270:
-            #     self.jump = -1
-            if self.velocity < 0:
-                self.jump = -1
-
-        elif self.jump == -1:
-            # self.y -= 6
-            self.y -= (self.mass * self.velocity * self.velocity) * 0.01
-
-            if self.y <= 250:
-
-                if self.face_dir == 1:
-                    self.state = 7
-                elif self.face_dir == -1:
-                    self.state = 6
-            if self.y <= 90:
-                self.jump = 0
-                self.isjump = False
-                self.y = 90
-                self.velocity = 20
-
-        else:
-             self.y = 90
-
-        self.frame = (self.frame + 1) % 1
-
-        self.x = clamp(0, self.x, 1600)
-
-        self.velocity -= 1
-
-    def draw(self):
-        self.image.clip_draw(int(self.frame) * 100, self.state*100, 100, 100, self.x, self.y)
+# class ZUMP:
+#     def enter(self, event):
+#         if self.isjump == False:
+#             self.isjump = True
+#             if event == ZD:
+#                 if self.jump == 0:
+#                     self.jump = 1
+#
+#     def exit(self, event):
+#         # self.face_dir = self.dir
+#         pass
+#
+#     def do(self,event):
+#         if self.jump == 1:
+#             if self.face_dir == 1:
+#                 self.state = 5
+#             if self.face_dir == -1:
+#                 self.state = 4
+#             self.y += (self.mass * self.velocity * self.velocity) * 0.01
+#
+#             if self.velocity < 0:
+#                 self.jump = -1
+#
+#         elif self.jump == -1:
+#             self.y -= (self.mass * self.velocity * self.velocity) * 0.01
+#
+#             if self.y <= 250:
+#
+#                 if self.face_dir == 1:
+#                     self.state = 7
+#                 elif self.face_dir == -1:
+#                     self.state = 6
+#             if self.y <= 90:
+#                 self.jump = 0
+#                 self.isjump = False
+#                 self.y = 90
+#                 self.velocity = 20
+#
+#         else:
+#              self.y = 90
+#
+#         self.frame = (self.frame + 1) % 1
+#
+#         self.x = clamp(0, self.x, 1600)
+#
+#         self.velocity -= 1
+#
+#     def draw(self):
+#         self.image.clip_draw(int(self.frame) * 100, self.state*100, 100, 100, self.x, self.y)
 
 
 
 next_state = {
-    IDLE:  {RU: IDLE,  LU: IDLE,  RD: RUN,  LD: RUN, Z: ZUMP, ZU: IDLE},
-    RUN:   {RU: IDLE, LU: IDLE, RD: RUN, LD: RUN, Z: ZUMP, ZU: IDLE},
-    ZUMP:   {RU: IDLE, LU: IDLE, RD: RUN, LD: RUN, Z: ZUMP, ZU: IDLE}
+    IDLE:  {RU: IDLE,  LU: IDLE,  RD: RUN,  LD: RUN, ZD: IDLE, ZU: IDLE},
+    RUN:   {RU: IDLE, LU: IDLE, RD: RUN, LD: RUN, ZD: RUN, ZU: RUN}
+    #ZUMP:   {RU: IDLE, LU: IDLE, RD: RUN, LD: RUN, Z: ZUMP, ZU: IDLE}
 }
 
 
