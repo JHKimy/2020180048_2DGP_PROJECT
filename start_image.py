@@ -1,6 +1,5 @@
 from pico2d import *
 import game_framework
-#import def_obj
 import play_state
 
 image = None
