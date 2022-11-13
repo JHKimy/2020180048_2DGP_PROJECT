@@ -13,6 +13,7 @@ class Mario:
         self.attack_image_r = load_image('attack2.png')
         self.state = 3
         self.dir = 0
+        self.dx = 4
         self.face_dir = 1
         self.jump = 0
         self.jumpval = self.y
@@ -23,7 +24,11 @@ class Mario:
 
     def update(self):
         self.frame = (self.frame + 1) % 3
-        self.x += self.dir * 5
+
+
+        if self.x < 400:
+            self.x += self.dir * self.dx
+
 
         if self.jump == 1:
             self.y += 7

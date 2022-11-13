@@ -14,6 +14,7 @@ enemy = None
 
 
 
+
 def handle_events():
     global running
     global dir
@@ -78,7 +79,7 @@ def handle_events():
 def enter():
     global char, back, enemy
     char = Mario()
-    enemy = Mushroom()
+    enemy = Mushroom(500,80)
     back = Background()
     game_world.add_object(back, 0)
     game_world.add_object(char, 1)
