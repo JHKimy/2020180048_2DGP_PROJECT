@@ -3,6 +3,8 @@ import game_world
 import game_framework
 import mario
 import play_state
+import start_image
+import finish_image
 
 class Background:
     def __init__(self):
@@ -11,25 +13,39 @@ class Background:
 
         self.width = 3000
         self.height = 640
-        #
+
         self.x = 3000//2
         self.y = 640//2
+
+
 
         #self.window_left = 0
 
     def update(self):
 
-        if self.x > -700:
+        # if  self.x >= 0:
+        #     self.x = 0
 
+        if self.x >= -700:
             if play_state.char.x > 400 and play_state.char.dir > 0:
                 self.x -= play_state.char.dx
 
             elif play_state.char.dir < 0:
-                    self.x += play_state.char.dx
+                self.x += play_state.char.dx
 
+
+        clamp(0,self.x,3000//2)
 
         if self.x < -700:
             play_state.char.x += 4
+
+        if self.x == -700:
+            delay(1)
+            game_framework.change_state(finish_image)
+
+            # play_state.char.frame = (play_state.char.frame+1) % 3
+            # play_state.char.state = 3
+            # play_state.char.image.clip_draw(self.frame, self.state * 100, 100, 100, self.x, self.y)
 
 
 

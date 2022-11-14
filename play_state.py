@@ -82,7 +82,7 @@ def handle_events():
 
 
 def enter():
-    global char, back, enemy1, brick1, brick2, brick3, chimney1, bricks
+    global char, back, enemy1, chimney1, bricks, chimney1
 
     back = Background()
     char = Mario()
@@ -100,14 +100,14 @@ def enter():
 
     bricks = [brick1,brick2,brick3,brick4]
 
-
     chimney1 = Chimney(1000,115)
+
+
 
 
     game_world.add_object(back, 0)
     game_world.add_object(char, 1)
     #game_world.add_object(enemy1, 1)
-
 
     #game_world.add_object(brick1, 0)
     #game_world.add_object(brick2, 0)
@@ -139,12 +139,37 @@ def update():
                 char.jump = -1
 
         if collide_check.collide(char, bk):
-            if char.x > bk.ox+25 :
+            if char.x > bk.ox + 25 :
                 char.jump = -1
-            # elif char.x < bk.ox-40:
+
+        # if collide_check.collide(char, bk):
+        #     if char.y > bk.oy:
+        #         if char.x < bk.ox - 50:
+        #             char.jump = -1
+            # elif char.x < bk.ox:
             #     char.jump = -1
 
+        if collide_check.collide(char, chimney1):
+            if char.y < chimney1.oy:
+                char.dx = 0
+                if char.jump == 1:
+                    char.x = char.x -1
+                    char.dx = 4
 
+                if char.face_dir ==-1 :
+                    char.dx = 4
+
+            if char.y > chimney1.oy:
+                char.jump = 0
+                char.jumpval = 0
+
+        if collide_check.collide(char, chimney1):
+            if char.x > chimney1.ox + 40 :
+                char.jump = -1
+        if collide_check.collide(char, chimney1):
+            if char.y > chimney1.oy:
+                if char.x < chimney1.ox - 45 :
+                    char.jump = -1
 
 
 
