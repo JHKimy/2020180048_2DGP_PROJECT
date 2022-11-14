@@ -87,6 +87,7 @@ def enter():
     back = Background()
     char = Mario()
     #enemy1 = Mushroom(500, 80)
+    
 
     brick1 = Brick(400,180)
     brick2 = Brick(450,180)
@@ -149,7 +150,7 @@ def update():
             # elif char.x < bk.ox:
             #     char.jump = -1
 
-        if collide_check.collide(char, chimney1):
+        if collide_check.collide(char, chimney1): #굴뚝과 충돌처리
             if char.y < chimney1.oy:
                 char.dx = 0
                 if char.jump == 1:
@@ -163,7 +164,7 @@ def update():
                 char.jump = 0
                 char.jumpval = 0
 
-        if collide_check.collide(char, chimney1):
+        if collide_check.collide(char, chimney1): 
             if char.x > chimney1.ox + 40 :
                 char.jump = -1
         if collide_check.collide(char, chimney1):
