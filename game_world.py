@@ -25,8 +25,10 @@ def remove_object(o):
             layer.remove(o)
             del o
             return
+
         except:
             pass
+
     raise ValueError('Trying destroy non existing object')
 
 

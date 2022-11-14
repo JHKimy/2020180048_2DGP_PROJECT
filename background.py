@@ -21,11 +21,17 @@ class Background:
 
         if self.x > -700:
 
-            if play_state.char.x > 400 and play_state.char.dir != 0 and play_state.char.dir != -1:
+            if play_state.char.x > 400 and play_state.char.dir > 0:
                 self.x -= play_state.char.dx
 
             elif play_state.char.dir < 0:
-                self.x += play_state.char.dx
+                    self.x += play_state.char.dx
+
+
+        if self.x < -700:
+            play_state.char.x += 4
+
+
 
 
 

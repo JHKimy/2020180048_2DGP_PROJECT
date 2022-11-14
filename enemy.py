@@ -13,26 +13,30 @@ class Mushroom:
         self.image = load_image('monster1.png')
         self.state = 0
         self.dir = 1
+        self.mdx = 2
+        self.moving_x = 0
         #self.cx = self.mx - background.Background.window_left
 
     def update(self):
         # self.frame = (self.frame + 1) % 3
         if play_state.char.x > 400:
+            self.mx -= self.dir * self.mdx
             self.mx -= play_state.char.dx
+
+            if self.mx < 300:
+                self.dir = -1
+
+            elif self.mx > 500:
+                self.dir = 1
+
         else:
             self.mx -= self.dir * 2
 
             if self.mx < 300:
-                self.mx = 300
                 self.dir = -1
 
             elif self.mx > 500:
-                self.mx = 500
                 self.dir = 1
-
-
-
-
 
 
     def draw(self):
