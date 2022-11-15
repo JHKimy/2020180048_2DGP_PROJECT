@@ -59,9 +59,13 @@ class Mario:
 
                 if self.state == 6:
                     self.state = 2
+                    if self.dir == -1:
+                        self.state = 0
 
                 elif self.state == 7:
                     self.state = 3
+                    if self.dir == 1:
+                        self.state = 1
 
 
         elif self.y < 90:
