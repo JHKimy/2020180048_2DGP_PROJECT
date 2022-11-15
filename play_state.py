@@ -13,6 +13,7 @@ from background import Background
 from geographic_objects import Brick
 from geographic_objects import Chimney
 from item import Itembox
+from itemM import Item
 
 char = None
 back = None
@@ -88,7 +89,7 @@ def enter():
 
     back = Background()
     char = Mario()
-    #enemy1 = Mushroom(500, 80)
+    enemy1 = Mushroom(500, 80)
 
 
     brick1 = Brick(400,180)
@@ -111,9 +112,10 @@ def enter():
 
 
 
+
     game_world.add_object(back, 0)
     game_world.add_object(char, 1)
-    #game_world.add_object(enemy1, 1)
+    game_world.add_object(enemy1, 0)
 
     #game_world.add_object(brick1, 0)
     #game_world.add_object(brick2, 0)
@@ -121,7 +123,9 @@ def enter():
     game_world.add_objects(bricks, 0)
 
     game_world.add_object(chimney1, 0)
+
     game_world.add_object(itembox, 0)
+
 
 
 
@@ -198,8 +202,17 @@ def update():
     if collide_check.collide(char, itembox):
         if char.x > itembox.ox + 25:
             char.jump = -1
-        elif char.x <itembox.ox -35:
+        elif char.x < itembox.ox -35:
             char.jump =-1
+
+    if itembox.tick_Itembox == 1:
+        itembox.item()
+        itembox.tick_Itembox = -1
+
+    if collide_check.collide(char.fireball, enemy):
+
+    # if collide_check.collide(char, Item):
+    #     game_world.remove_object(Item)
 
 
 

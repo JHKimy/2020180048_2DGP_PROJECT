@@ -22,26 +22,27 @@ class Background:
         #self.window_left = 0
 
     def update(self):
-
         # if  self.x >= 0:
         #     self.x = 0
 
-        if self.x >= -700:
+        if self.x >= -700:     # 맵의 x가 -700이 되면 맵 이동 멈춤
             if play_state.char.x > 400 and play_state.char.dir > 0:
-                self.x -= play_state.char.dx
+                self.x -= play_state.char.dx     # 캐릭터의 이동힘값을 계속 뺴줌 == 맵이 왼쪽으로 이동
 
             elif play_state.char.dir < 0:
                 self.x += play_state.char.dx
 
 
-        clamp(0,self.x,3000//2)
+        clamp(0,self.x,3000//2) # 맵 한정값
 
-        if self.x < -700:
-            play_state.char.x += 4
+        # if self.x < -700:
+        #     play_state.char.x += 4
 
-        if self.x == -700:
+        if self.x == -700:  # 맵에 캐릭터 dx값 계속 들어가서 -700되면 게임 끝
             delay(1)
             game_framework.change_state(finish_image)
+
+
 
             # play_state.char.frame = (play_state.char.frame+1) % 3
             # play_state.char.state = 3

@@ -19,10 +19,19 @@ class Fireball:
             self.image.clip_draw(self.frame * 64, 0, 64, 64, self.x, self.y)
         elif self.face_dir == 1:
             self.image.clip_draw(self.frame * 64, 64, 64, 64, self.x, self.y)
-
+        draw_rectangle(*self.get_bb())
     def update(self):
         self.x += self.velocity
+
+        if play_state.char.x > 400 and play_state.char.dir == 1:
+            self.x -= play_state.char.dx
+        elif play_state.char.x > 400 and play_state.char.dir < 0:
+            self.x += play_state.char.dx
+
         if self.x < 25 or self.x > 2000 - 25:
             game_world.remove_object(self)
 
         self.frame = (self.frame + 1) % 5
+
+    def get_bb(self):
+        return self.x - 23, self.y - 10, self.x + 23, self.y + 10

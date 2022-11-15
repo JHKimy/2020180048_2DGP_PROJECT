@@ -19,6 +19,7 @@ class Mario:
         self.jump = 0
         self.jumpval = 0
         self.attack = 0
+        self.item_mario = 0
         #self.mass = 7
         #self.velocity = 20
 
@@ -26,8 +27,12 @@ class Mario:
     def update(self):
         self.frame = (self.frame + 1) % 3
 
+        if self.state == 2 or self.state == 3:
+            self.dx = 0
+        else :
+            self.dx = 4
 
-        if self.x < 400 :
+        if self.x < 400:
             self.x += self.dir * self.dx
 
         if self.jump == 1:
@@ -94,7 +99,8 @@ class Mario:
 
     def fire_ball(self):
         fireball = Fireball(self.x, self.y, self.face_dir * 5)
-        game_world.add_object(fireball, 1)
+        if self.item_mario == 1 :
+            game_world.add_object(fireball, 0)
 
 
     def get_bb(self):    # 충동처리 사각형 범위
