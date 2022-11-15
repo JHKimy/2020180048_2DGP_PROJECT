@@ -3,6 +3,7 @@ import game_framework
 import start_image
 import game_world
 import collide_check
+import gameover_image
 
 
 
@@ -11,14 +12,19 @@ from enemy import Mushroom
 from background import Background
 
 from geographic_objects import Brick
+from geographic_objects import Bricks3
 from geographic_objects import Chimney
 from item import Itembox
+from fireball import Fireball
+
 from itemM import Item
 
 char = None
 back = None
-enemy = None
+enemy1 = None
 
+# 파이어볼이 없어짐에 따라 적도 사라지게 하게하기위한 변수
+kk = None
 
 
 
@@ -85,10 +91,13 @@ def handle_events():
 
 
 def enter():
-    global char, back, enemy1, chimney1, bricks, chimney1, itembox
+    global char, back, enemy1, chimney1, bricks, chimney1, itembox, brick_3n
+
 
     back = Background()
     char = Mario()
+
+
     enemy1 = Mushroom(500, 80)
 
 
@@ -96,6 +105,8 @@ def enter():
     brick2 = Brick(450,180)
     brick3 = Brick(500,180)
     brick4 = Brick(450,300)
+
+    brick_3n = Bricks3(1250,250)
 
     brick5 = Brick(500,200)
     brick6 = Brick(500,200)
@@ -110,21 +121,24 @@ def enter():
 
 
 
-
-
-
     game_world.add_object(back, 0)
     game_world.add_object(char, 1)
-    game_world.add_object(enemy1, 0)
+    game_world.add_object(enemy1, 2)
 
     #game_world.add_object(brick1, 0)
     #game_world.add_object(brick2, 0)
     #game_world.add_object(brick3, 0)
     game_world.add_objects(bricks, 0)
+    game_world.add_object(brick_3n, 0)
+
 
     game_world.add_object(chimney1, 0)
 
     game_world.add_object(itembox, 0)
+
+
+
+
 
 
 
@@ -141,10 +155,6 @@ def update():
         if collide_check.collide(char, bk):
             char.jump = 0
             char.jumpval = 0
-            # if char.face_dir==1:
-            #     char.state = 3
-            # elif char.face_dir==-1:
-            #     char.state = 2
 
         if char.y < bk.oy :
             if collide_check.collide(char, bk):
@@ -162,6 +172,24 @@ def update():
         #             char.jump = -1
             # elif char.x < bk.ox:
             #     char.jump = -1
+
+
+    # 3개짜리 벽돌 충돌 처리
+    if char.y < brick_3n.oy:
+        if collide_check.collide(char, brick_3n):
+            char.jump = -1
+
+    if collide_check.collide(char, brick_3n):
+        if char.y > brick_3n.oy:
+            char.jump = 0
+            char.jumpval = 0
+
+    if collide_check.collide(char, brick_3n):
+        if char.x > brick_3n.ox + 80:
+            char.jump = -1
+        elif char.x < brick_3n.ox - 80:
+            char.jump = -1
+
 
 
     # 굴뚝과 충돌처리
@@ -209,12 +237,10 @@ def update():
         itembox.item()
         itembox.tick_Itembox = -1
 
-    if collide_check.collide(char.fireball, enemy):
-
-    # if collide_check.collide(char, Item):
-    #     game_world.remove_object(Item)
 
 
+    if collide_check.collide(char, enemy1):
+        game_framework.change_state(gameover_image)
 
 
 

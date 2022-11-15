@@ -3,6 +3,8 @@ import game_world
 import game_framework
 import background
 import play_state
+import collide_check
+from fireball import Fireball
 
 
 class Mushroom:
@@ -19,30 +21,50 @@ class Mushroom:
         #self.cx = self.mx - background.Background.window_left
 
     def update(self):
-        # self.frame = (self.frame + 1) % 3
 
-        if play_state.char.x > 400 and play_state.char.dir == 1:
-            self.mx -= self.dir * self.mdx + play_state.char.dx
-            self.moving += play_state.char.dx
-        elif play_state.char.x > 400 and play_state.char.dir < 0:
-            self.mx += self.dir * self.mdx + play_state.char.dx
-            self.moving += play_state.char.dx
-        # if play_state.char.x > 400:
-        #     self.mx -= self.dir * self.mdx
-        #     self.mx -= play_state.char.dx
-            if self.mx < self.moving:
-                self.dir = -1
-            elif self.mx > self.moving:
-                self.dir = 1
+        if play_state.kk == 1:
+            game_world.remove_object(self)
+            self.mx = 1000
 
-        else:
-            self.mx -= self.dir * 2
+        self.mx -= self.dir * self.mdx
 
+
+        if play_state.char.x < 400 :
             if self.mx < 300:
                 self.dir = -1
-
-            elif self.mx > 500:
+            elif self.mx > 600:
                 self.dir = 1
+
+
+        elif play_state.char.x > 400 and play_state.char.dir == 1:
+            self.mx -= play_state.char.dx
+        elif play_state.char.x > 400 and play_state.char.dir < 0:
+            self.mx += play_state.char.dx
+
+        # self.frame = (self.frame + 1) % 3
+
+        # elif play_state.char.x > 400 and play_state.char.dir == 1:
+        #     self.mx -= self.dir * self.mdx + play_state.char.dx
+        #     self.moving += play_state.char.dx
+        # elif play_state.char.x > 400 and play_state.char.dir < 0:
+        #     self.mx += self.dir * self.mdx + play_state.char.dx
+        #     self.moving += play_state.char.dx
+        # # if play_state.char.x > 400:               ##
+        # #     self.mx -= self.dir * self.mdx        ##
+        # #     self.mx -= play_state.char.dx         ##
+        #     if self.mx < self.moving:
+        #         self.dir = -1
+        #     elif self.mx > self.moving:
+        #         self.dir = 1
+        #
+        # else:
+        #     self.mx -= self.dir * 2
+        #
+        #     if self.mx < 300:
+        #         self.dir = -1
+        #
+        #     elif self.mx > 500:
+        #         self.dir = 1
 
 
     def draw(self):
