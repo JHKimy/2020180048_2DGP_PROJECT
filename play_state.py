@@ -14,6 +14,7 @@ from background import Background
 from geographic_objects import Brick
 from geographic_objects import Bricks3
 from geographic_objects import Chimney
+
 from item import Itembox
 from fireball import Fireball
 
@@ -91,22 +92,21 @@ def handle_events():
 
 
 def enter():
-    global char, back, enemy1, chimney1, bricks, chimney1, itembox, brick_3n
-
+    global char, back, enemy1, chimney1, bricks, chimneys, itembox, brick_3n1, brick_3n2
 
     back = Background()
     char = Mario()
 
-
     enemy1 = Mushroom(500, 80)
 
-
-    brick1 = Brick(400,180)
-    brick2 = Brick(450,180)
-    brick3 = Brick(500,180)
+    brick1 = Brick(1900,180)
+    brick2 = Brick(1700,200)
+    brick3 = Brick(1500,150)
     brick4 = Brick(450,300)
 
-    brick_3n = Bricks3(1250,250)
+    brick_3n1 = Bricks3(450,180)
+    brick_3n2 = Bricks3(1250,250)
+    brick_3n3 = Bricks3(1250,250)
 
     brick5 = Brick(500,200)
     brick6 = Brick(500,200)
@@ -116,6 +116,11 @@ def enter():
     bricks = [brick1,brick2,brick3,brick4]
 
     chimney1 = Chimney(1000,115)
+    chimney2 = Chimney(1500,115)
+    chimney3 = Chimney(2000,115)
+    chimney4 = Chimney(2500,115)
+
+    chimneys = [chimney1,chimney2,chimney3,chimney4]
 
     itembox = Itembox(700,180)
 
@@ -129,17 +134,14 @@ def enter():
     #game_world.add_object(brick2, 0)
     #game_world.add_object(brick3, 0)
     game_world.add_objects(bricks, 0)
-    game_world.add_object(brick_3n, 0)
+
+    game_world.add_object(brick_3n1, 0)
+    game_world.add_object(brick_3n2, 0)
 
 
-    game_world.add_object(chimney1, 0)
+    game_world.add_objects(chimneys, 0)
 
     game_world.add_object(itembox, 0)
-
-
-
-
-
 
 
 
@@ -151,69 +153,81 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
+    # 벽돌과 캐릭터 충돌 처리
     for bk in bricks:
         if collide_check.collide(char, bk):
             char.jump = 0
             char.jumpval = 0
 
-        if char.y < bk.oy :
+        if char.y < bk.oy:
             if collide_check.collide(char, bk):
                 char.jump = -1
 
         if collide_check.collide(char, bk):
-            if char.x > bk.ox + 25:
+            if char.x > bk.ox + 20:
+                char.jump = -1
+
+        if collide_check.collide(char, bk):
+            if char.x < bk.ox -35:
                 char.jump = -1
 
 
-
-        # if collide_check.collide(char, bk):
-        #     if char.y > bk.oy:
-        #         if char.x < bk.ox - 50:
-        #             char.jump = -1
-            # elif char.x < bk.ox:
-            #     char.jump = -1
-
-
     # 3개짜리 벽돌 충돌 처리
-    if char.y < brick_3n.oy:
-        if collide_check.collide(char, brick_3n):
+    if char.y < brick_3n1.oy:
+        if collide_check.collide(char, brick_3n1):
             char.jump = -1
 
-    if collide_check.collide(char, brick_3n):
-        if char.y > brick_3n.oy:
+    if collide_check.collide(char, brick_3n1):
+        if char.y > brick_3n1.oy+20:
             char.jump = 0
             char.jumpval = 0
 
-    if collide_check.collide(char, brick_3n):
-        if char.x > brick_3n.ox + 80:
+    if collide_check.collide(char, brick_3n1):
+        if char.x > brick_3n1.ox + 80:
             char.jump = -1
-        elif char.x < brick_3n.ox - 80:
+        elif char.x < brick_3n1.ox - 80:
+            char.jump = -1
+
+    if char.y < brick_3n2.oy:
+        if collide_check.collide(char, brick_3n2):
+            char.jump = -1
+
+    if collide_check.collide(char, brick_3n2):
+        if char.y > brick_3n2.oy:
+            char.jump = 0
+            char.jumpval = 0
+
+    if collide_check.collide(char, brick_3n2):
+        if char.x > brick_3n2.ox + 80:
+            char.jump = -1
+        elif char.x < brick_3n2.ox - 80:
             char.jump = -1
 
 
 
     # 굴뚝과 충돌처리
-    if collide_check.collide(char, chimney1):
-        if char.y < chimney1.oy:
-            char.dx = 0
-            if char.jump == 1:
-                char.x = char.x -1
-                char.dx = 4
+    for ch in chimneys:
+        if collide_check.collide(char, ch):
+            if char.y < ch.oy:
+                char.dx = 0
+                if char.jump == 1:
+                    char.x = char.x -1
+                    char.dx = 4
 
-            if char.face_dir ==-1 :
-                char.dx = 4
+                if char.face_dir ==-1 :
+                    char.dx = 4
 
-        if char.y > chimney1.oy:
-            char.jump = 0
-            char.jumpval = 0
+            if char.y > ch.oy:
+                char.jump = 0
+                char.jumpval = 0
 
-    if collide_check.collide(char, chimney1):
-        if char.x > chimney1.ox + 40 :
-             char.jump = -1
-    if collide_check.collide(char, chimney1):
-        if char.y > chimney1.oy:
-            if char.x < chimney1.ox - 50 :
-                char.jump = -1
+        if collide_check.collide(char, ch):
+            if char.x > ch.ox + 40 :
+                 char.jump = -1
+        if collide_check.collide(char, ch):
+            if char.y > ch.oy:
+                if char.x < ch.ox - 50 :
+                    char.jump = -1
 
 
     # 아이템 박스 충돌처리
