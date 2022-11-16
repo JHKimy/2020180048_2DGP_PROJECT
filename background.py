@@ -11,10 +11,10 @@ class Background:
         self.image = load_image('background.png')
         self.canvas_width = get_canvas_width()
 
-        self.width = 4000
+        self.width = 6000
         self.height = 640
 
-        self.x = 3000//2
+        self.x = 5000//2
         self.y = 640//2
 
 

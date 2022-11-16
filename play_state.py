@@ -92,37 +92,44 @@ def handle_events():
 
 
 def enter():
-    global char, back, enemy1, chimney1, bricks, chimneys, itembox, brick_3n1, brick_3n2
+    global char, back, enemy1, chimney1, bricks, chimneys, itembox, bricks_3n
 
     back = Background()
     char = Mario()
 
     enemy1 = Mushroom(500, 80)
 
-    brick1 = Brick(1900,180)
-    brick2 = Brick(1700,200)
-    brick3 = Brick(1500,150)
-    brick4 = Brick(450,300)
-
-    brick_3n1 = Bricks3(450,180)
-    brick_3n2 = Bricks3(1250,250)
-    brick_3n3 = Bricks3(1250,250)
-
-    brick5 = Brick(500,200)
-    brick6 = Brick(500,200)
-    brick7 = Brick(500,200)
-    brick8 = Brick(500,200)
-
-    bricks = [brick1,brick2,brick3,brick4]
-
+    brick_3n1 = Bricks3(450, 180)
+    brick1 = Brick(450, 300)
+    itembox = Itembox(700, 180)
     chimney1 = Chimney(1000,115)
+    brick_3n2 = Bricks3(1250,250)
     chimney2 = Chimney(1500,115)
-    chimney3 = Chimney(2000,115)
-    chimney4 = Chimney(2500,115)
 
-    chimneys = [chimney1,chimney2,chimney3,chimney4]
+    brick2 = Brick(1700,250)
+    brick3 = Brick(1900,300)
+    brick4 = Brick(2100,250)
+    brick5 = Brick(2300,300)
 
-    itembox = Itembox(700,180)
+
+    chimney3 = Chimney(2500,115)
+    brick_3n3 = Bricks3(3100,180)
+    brick6 = Brick(3300, 250)
+    brick7 = Brick(3500, 350)
+    brick8 = Brick(3700, 400)
+    brick_3n4 = Bricks3(3950,500)
+
+
+
+
+
+    bricks = [brick1,brick2,brick3,brick4,brick5,brick6,brick7,brick8]
+    bricks_3n = [brick_3n1, brick_3n2, brick_3n3,brick_3n4]
+
+
+    chimneys = [chimney1,chimney2,chimney3]
+
+
 
 
 
@@ -135,8 +142,7 @@ def enter():
     #game_world.add_object(brick3, 0)
     game_world.add_objects(bricks, 0)
 
-    game_world.add_object(brick_3n1, 0)
-    game_world.add_object(brick_3n2, 0)
+    game_world.add_objects(bricks_3n, 0)
 
 
     game_world.add_objects(chimneys, 0)
@@ -173,35 +179,36 @@ def update():
 
 
     # 3개짜리 벽돌 충돌 처리
-    if char.y < brick_3n1.oy:
-        if collide_check.collide(char, brick_3n1):
-            char.jump = -1
+    for bk3 in bricks_3n:
+        if char.y < bk3.oy:
+            if collide_check.collide(char, bk3):
+                char.jump = -1
 
-    if collide_check.collide(char, brick_3n1):
-        if char.y > brick_3n1.oy+20:
-            char.jump = 0
-            char.jumpval = 0
+        if collide_check.collide(char, bk3):
+            if char.y > bk3.oy+20:
+                char.jump = 0
+                char.jumpval = 0
 
-    if collide_check.collide(char, brick_3n1):
-        if char.x > brick_3n1.ox + 80:
-            char.jump = -1
-        elif char.x < brick_3n1.ox - 80:
-            char.jump = -1
+        if collide_check.collide(char, bk3):
+            if char.x > bk3.ox + 80:
+                char.jump = -1
+            elif char.x < bk3.ox - 80:
+                char.jump = -1
 
-    if char.y < brick_3n2.oy:
-        if collide_check.collide(char, brick_3n2):
-            char.jump = -1
+        if char.y < bk3.oy:
+            if collide_check.collide(char, bk3):
+                char.jump = -1
 
-    if collide_check.collide(char, brick_3n2):
-        if char.y > brick_3n2.oy:
-            char.jump = 0
-            char.jumpval = 0
+        if collide_check.collide(char, bk3):
+            if char.y > bk3.oy:
+                char.jump = 0
+                char.jumpval = 0
 
-    if collide_check.collide(char, brick_3n2):
-        if char.x > brick_3n2.ox + 80:
-            char.jump = -1
-        elif char.x < brick_3n2.ox - 80:
-            char.jump = -1
+        if collide_check.collide(char, bk3):
+            if char.x > bk3.ox + 80:
+                char.jump = -1
+            elif char.x < bk3.ox - 80:
+                char.jump = -1
 
 
 
