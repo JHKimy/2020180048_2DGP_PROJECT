@@ -4,11 +4,13 @@ import start_image
 import game_world
 import collide_check
 import gameover_image
+import finish_image
 
 
 
 from mario import Mario
 from enemy import Mushroom
+from enemy import Turtle
 from background import Background
 
 from geographic_objects import Brick
@@ -16,6 +18,10 @@ from geographic_objects import Bricks3
 from geographic_objects import Chimney
 
 from item import Itembox
+from flag import Flag
+from collide_box import Collide_box
+from collide_box import Collide_box2
+
 from fireball import Fireball
 
 from itemM import Item
@@ -92,16 +98,28 @@ def handle_events():
 
 
 def enter():
-    global char, back, enemy1, chimney1, bricks, chimneys, itembox, bricks_3n
+    global char, back, enemy1, chimney1, bricks, chimneys, \
+        itembox, bricks_3n, flag, collide_box, enemy2, \
+        collide_box2, collide_box3, collide_box_fall
 
     back = Background()
     char = Mario()
 
-    enemy1 = Mushroom(500, 80)
+    enemy1 = Mushroom(500, 90)
+    enemy2 = Turtle(2700,90)
+
+    collide_box = Collide_box(500,90) # 굼바 위치 제한용
+    collide_box2 = Collide_box(3000, 90) # 거북이 위치 제한용
+    collide_box3 = Collide_box(2550, 90) # 거북이 위치 제한용
+
+    collide_box_fall = Collide_box2(2000, 0) # 바닥 닿으면 게임 오버
+
 
     brick_3n1 = Bricks3(450, 180)
     brick1 = Brick(450, 300)
+
     itembox = Itembox(700, 180)
+
     chimney1 = Chimney(1000,115)
     brick_3n2 = Bricks3(1250,250)
     chimney2 = Chimney(1500,115)
@@ -117,7 +135,8 @@ def enter():
     brick6 = Brick(3300, 250)
     brick7 = Brick(3500, 350)
     brick8 = Brick(3700, 400)
-    brick_3n4 = Bricks3(3950,500)
+    brick_3n4 = Bricks3(3950,470)
+    flag = Flag(3950,540)
 
 
 
@@ -136,6 +155,12 @@ def enter():
     game_world.add_object(back, 0)
     game_world.add_object(char, 1)
     game_world.add_object(enemy1, 2)
+    game_world.add_object(collide_box, 0)
+    game_world.add_object(collide_box2, 0)
+    game_world.add_object(collide_box3, 0)
+    game_world.add_object(collide_box_fall, 0)
+
+    game_world.add_object(enemy2, 3)
 
     #game_world.add_object(brick1, 0)
     #game_world.add_object(brick2, 0)
@@ -148,6 +173,8 @@ def enter():
     game_world.add_objects(chimneys, 0)
 
     game_world.add_object(itembox, 0)
+
+    game_world.add_object(flag, 0)
 
 
 
@@ -236,6 +263,23 @@ def update():
                 if char.x < ch.ox - 50 :
                     char.jump = -1
 
+        # 굼바와 굴뚝 충돌처리
+        if collide_check.collide(enemy1, ch):
+            enemy1.dir = -1
+
+        # 굼바와 충돌박스 충돌처리
+    if collide_check.collide(enemy1, collide_box):
+        enemy1.dir = 1
+        # 거북이와 충돌박스 충돌처리
+    if collide_check.collide(enemy2, collide_box2):
+        enemy2.dir = -1
+        # 거북이와 충돌박스 충돌처리
+    if collide_check.collide(enemy2, collide_box3):
+        enemy2.dir = 1
+
+    if collide_check.collide(char, collide_box_fall):
+        game_framework.change_state(gameover_image)
+
 
     # 아이템 박스 충돌처리
     if char.y < itembox.oy:
@@ -260,8 +304,16 @@ def update():
 
 
 
+
     if collide_check.collide(char, enemy1):
         game_framework.change_state(gameover_image)
+
+
+    # 깃발과 캐릭터 충돌처리
+    if collide_check.collide(char, flag):
+        delay(0.5)
+        game_framework.change_state(finish_image)
+
 
 
 

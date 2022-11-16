@@ -26,6 +26,9 @@ class Fireball:
         if collide_check.collide(self, play_state.enemy1): 
             game_world.remove_object(self)
             play_state.kk = 1
+        if collide_check.collide(self, play_state.enemy2):
+            game_world.remove_object(self)
+            play_state.kk = 2
 
 
         # if self.x > play_state.enemy1.mx :

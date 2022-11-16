@@ -6,8 +6,8 @@ import collide_check
 
 class Mario:
     def __init__(self):
-        self.x, self.y = 30, 90
-        self.gy = 90  # 점프 할때 땅값
+        self.x, self.y = 30, 100
+        self.gy = 100  # 점프 할때 땅값
         self.frame = 0
         self.image = load_image('mario2.png')
         self.attack_image_l = load_image('attack1.png')
@@ -56,9 +56,9 @@ class Mario:
                 elif self.state == 5:
                     self.state = 7
 
-            if self.y < 90:
+            if self.y < 100:
                 self.jump = 0
-                self.y = 90
+                self.y = 100
                 self.jumpval = 0
                 #self.velocity = 20
 
@@ -73,8 +73,8 @@ class Mario:
                         self.state = 1
 
 
-        elif self.y < 90:
-            self.y = 90
+        elif self.y < 100:
+            self.y = 100
 
 
 

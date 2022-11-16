@@ -13,7 +13,7 @@ class Item:
 
         if self.image == None:
             self.image = load_image('item.png')
-        self.x, self.y, self.velocity = x, y, velocity
+        self.x, self.y, self.velocity = x, y+25, velocity
 
     def draw(self):
         self.image.draw(self.x, self.y)
