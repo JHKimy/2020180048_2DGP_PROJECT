@@ -20,6 +20,7 @@ class Mario:
         self.jumpval = 0
         self.attack = 0
         self.item_mario = 0
+        #self.is_jumping = 0   # 마리오가 점프중일때
         #self.mass = 7
         #self.velocity = 20
 
@@ -51,12 +52,14 @@ class Mario:
             self.y -= 6
             self.jumpval -= 6
             if self.jumpval < 160:
+                #self. is_jumping = 0  ################
                 if self.state == 4:
                     self.state = 6
                 elif self.state == 5:
                     self.state = 7
 
             if self.y < 100:
+                #self.is_jumping = 0  ################
                 self.jump = 0
                 self.y = 100
                 self.jumpval = 0

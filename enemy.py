@@ -1,4 +1,6 @@
 from pico2d import *
+
+import game_framework
 import game_world
 import play_state
 
@@ -22,7 +24,7 @@ class Mushroom:
 
         if play_state.kk == 1:
             game_world.remove_object(self)
-            self.mx = 7000
+            self.mx = 10000
 
         self.mx += self.dir * self.mdx
 
@@ -59,7 +61,9 @@ class Turtle:
 
         if play_state.kk == 2:
             game_world.remove_object(self)
-            self.mx = 7000
+            self.mx = 10000
+
+
 
         self.mx += self.dir * self.mdx
 
