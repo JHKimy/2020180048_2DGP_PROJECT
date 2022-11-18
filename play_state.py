@@ -43,6 +43,7 @@ def handle_events():
 
     for event in events:
 
+
         if event.type == SDL_QUIT:
             running = False
 

@@ -36,7 +36,7 @@ class Mushroom:
 
     def draw(self):
         self.image.clip_draw(self.frame * 55, 0, 55, 55, self.mx, self.my)
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return self.mx - 25, self.my - 25, self.mx + 25, self.my + 25
@@ -81,7 +81,7 @@ class Turtle:
         elif self.dir == 1:
             self.image.clip_composite_draw(int(self.frame) * 70, 0, 70, 70, 0, 'h', self.mx, self.my,70,70)
 
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return self.mx - 25, self.my - 25, self.mx + 25, self.my + 25

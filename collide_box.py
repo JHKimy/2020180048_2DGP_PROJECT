@@ -16,7 +16,7 @@ class Collide_box:
 
     def draw(self):
         self.image.draw(self.ox, self.oy)
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def get_bb(self):  # 충동처리 사각형 범위
         return self.ox - 30, self.oy - 30, self.ox + 30, self.oy + 30
@@ -36,7 +36,7 @@ class Collide_box2:
 
     def draw(self):
         self.image.draw(self.ox, self.oy)
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def get_bb(self):  # 충동처리 사각형 범위
         return self.ox - 500, self.oy - 80, self.ox + 450, self.oy + 75

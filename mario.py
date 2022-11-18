@@ -98,7 +98,7 @@ class Mario:
         else:
             self.image.clip_draw(100, self.state * 100, 100, 100, self.x, self.y)
         
-        draw_rectangle(*self.get_bb()) # 충돌처리 사각형 그리기
+        #draw_rectangle(*self.get_bb()) # 충돌처리 사각형 그리기
 
     def fire_ball(self):
         fireball = Fireball(self.x, self.y, self.face_dir * 5)

@@ -19,7 +19,7 @@ class Fireball:
             self.image.clip_draw(self.frame * 64, 0, 64, 64, self.x, self.y)
         elif self.face_dir == 1:
             self.image.clip_draw(self.frame * 64, 64, 64, 64, self.x, self.y)
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
     def update(self):
         
         # 파이어볼이 적에게 닿으면 삭제, 적도 삭제하기위한 kk 변수에 1 대입

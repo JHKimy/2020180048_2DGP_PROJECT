@@ -15,7 +15,7 @@ class Flag:
 
     def draw(self):
         self.image.draw(self.ox, self.oy)
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def get_bb(self):  # 충동처리 사각형 범위
         return self.ox - 23, self.oy - 50, self.ox + 23, self.oy + 50
