@@ -3,6 +3,7 @@ import game_world
 import game_framework
 from fireball import Fireball
 import collide_check
+import play_state
 
 class Mario:
     def __init__(self):
@@ -26,6 +27,11 @@ class Mario:
 
 
     def update(self):
+
+        self.x = clamp(0, self.x, play_state.back.w - 1)
+        self.y = clamp(0, self.y, play_state.back.h - 1)
+
+
         self.frame = (self.frame + 1) % 3
 
         if self.state == 2 or self.state == 3:
