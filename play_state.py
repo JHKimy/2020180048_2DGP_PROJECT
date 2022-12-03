@@ -30,8 +30,11 @@ char = None
 back = None
 enemy1 = None
 
-# 파이어볼이 없어짐에 따라 적도 사라지게 하게하기위한 변수
-kk = None
+# 콜리드 박스 확인하기위한 b키를 위한 변수
+cb = 0
+
+# 파이어볼이 없어짐에 따라 적도 사라지게 하게 하기 위한 변수
+kk = 0
 
 
 
@@ -39,32 +42,50 @@ def handle_events():
     global running
     global dir
     global state
+    global cb
     events = get_events()
 
     for event in events:
 
 
+        # b키로 콜리드 박스 체크
+        if event.type == SDL_KEYDOWN:
+            if event.key == SDLK_b:
+                if cb == 0:
+                    cb = 1
+                elif cb == 1:
+                    cb = 0
+        # esc키로 나가기
         if event.type == SDL_QUIT:
             running = False
 
         elif event.type == SDL_KEYDOWN:
 
-            #if event.key == SDLK_RIGHT and char.is_jumping != 1: #############
+            #if event.key == SDLK_RIGHT and char.is_jumping != 1:
             if event.key == SDLK_RIGHT :
                 char.dir = 1
                 char.state = 1
                 char.face_dir = 1
 
-            #elif event.key == SDLK_LEFT and char.is_jumping != 1:  ############
+                if char.jump == 1: #######################
+                    char. state = 5
+                    char.dir = 1
+                    char.face_dir = 1
+
+            #elif event.key == SDLK_LEFT and char.is_jumping != 1:
             elif event.key == SDLK_LEFT :
                 char.dir = -1
                 char.state = 0
                 char.face_dir = -1
 
+                if char.jump == 1: #######################
+                    char. state = 4
+                    char.dir = -1
+                    char.face_dir = -1
 
 
             elif event.key == SDLK_z:
-                #char.is_jumping = 1               ############
+                #char.is_jumping = 1
 
                 if char.jump == 0:
                     char.jump = 1
@@ -73,6 +94,8 @@ def handle_events():
                         char.state = 4
                     elif char.face_dir == 1:
                         char.state = 5
+
+
 
             elif event.key == SDLK_c:
                     char.attack = 1
@@ -192,8 +215,10 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
+
     # 벽돌과 캐릭터 충돌 처리
     for bk in bricks:
+
         if collide_check.collide(char, bk):
             char.jump = 0
             char.jumpval = 0
@@ -209,6 +234,20 @@ def update():
         if collide_check.collide(char, bk):
             if char.x < bk.ox -35:
                 char.jump = -1
+
+        # 중간 뚫리는 버그 수정
+        if collide_check.collide(char, bk):
+            if char.y > bk.oy + 20 :
+                char.y = bk.oy + 55
+            else :
+                char.jump = -1
+
+
+
+
+
+
+
 
 
     # 3개짜리 벽돌 충돌 처리
@@ -243,10 +282,30 @@ def update():
             elif char.x < bk3.ox - 80:
                 char.jump = -1
 
+        # 중간 뚫리는 버그 수정
+        if collide_check.collide(char, bk3):
+            if char.y > bk3.oy + 50:
+                char.y = bk3.oy + 55
+            else:
+                char.jump = -1
+
+        # 점프 후 착지 모습 버그 수정
+
+
+
+
 
 
     # 굴뚝과 충돌처리
     for ch in chimneys:
+
+        # if char.y > ch.oy+30:
+        #     if collide_check.collide(char, ch):
+        #         char.y = ch.oy + 87
+        #         char.jump = 0
+        #         char.jumpval = 0
+
+
         if collide_check.collide(char, ch):
             if char.y < ch.oy:
                 char.dx = 0
@@ -261,13 +320,28 @@ def update():
                 char.jump = 0
                 char.jumpval = 0
 
+        # 굴뚝 위에서 밑으로 떨어질때
         if collide_check.collide(char, ch):
             if char.x > ch.ox + 40 :
                  char.jump = -1
+
+        # 굴뚝의 오른쪽 통과 x
+        if collide_check.collide(char, ch):
+            if ch.oy > char.y :
+                if char.x > ch.ox + 40:
+                    char.dx = 0
+                    if char.state ==1:
+                        char. dx = 4
+                    if char.jump == 1:
+                        char.dx = 4
+
+
         if collide_check.collide(char, ch):
             if char.y > ch.oy:
                 if char.x < ch.ox - 50 :
                     char.jump = -1
+
+
 
         # 굼바와 굴뚝 충돌처리
         if collide_check.collide(enemy1, ch):
@@ -307,6 +381,13 @@ def update():
     if itembox.tick_Itembox == 1:
         itembox.item()
         itembox.tick_Itembox = -1
+
+    # 중간 뚫리는 버그 수정
+    if collide_check.collide(char, itembox):
+        if char.y > itembox.oy + 20:
+            char.y = itembox.oy + 55
+        else:
+            char.jump = -1
 
 
 

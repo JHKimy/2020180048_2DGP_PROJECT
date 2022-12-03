@@ -26,6 +26,8 @@ def handle_events():
             game_framework.quit()
         elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
             game_framework.change_state(play_state)
+            # 몬스터 재생성
+            play_state.kk = None
 def update():
     pass
 

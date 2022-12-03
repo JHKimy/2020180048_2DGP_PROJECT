@@ -27,8 +27,8 @@ class Itembox:
             self.image2.draw(self.ox, self.oy)
         else:
             self.image.draw(self.ox, self.oy)
-
-        #draw_rectangle(*self.get_bb())
+        if play_state.cb == 1:
+            draw_rectangle(*self.get_bb())
 
     # 충동처리 사각형 범위
     def get_bb(self):
