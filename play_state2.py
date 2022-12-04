@@ -16,17 +16,12 @@ from background2 import Background
 
 from geographic_objects import Brick
 from geographic_objects import Bricks3
-from geographic_objects import Chimney
 
-from item import Itembox
 from flag import Flag
 from collide_box import Collide_box
 from collide_box import Collide_box3
 from collide_box import Collide_box4
 
-from fireball import Fireball
-
-from itemM import Item
 
 char = None
 back = None
