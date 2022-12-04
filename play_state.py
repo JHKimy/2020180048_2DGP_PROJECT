@@ -209,9 +209,6 @@ def enter():
 
     game_world.add_object(enemy2, 3)
 
-    #game_world.add_object(brick1, 0)
-    #game_world.add_object(brick2, 0)
-    #game_world.add_object(brick3, 0)
     game_world.add_objects(bricks, 0)
 
     game_world.add_objects(bricks_3n, 0)
@@ -265,10 +262,6 @@ def update():
 
 
 
-
-
-
-
     # 3개짜리 벽돌 충돌 처리
     for bk3 in bricks_3n:
         if char.y < bk3.oy:
@@ -317,12 +310,6 @@ def update():
 
     # 굴뚝과 충돌처리
     for ch in chimneys:
-
-        # if char.y > ch.oy+30:
-        #     if collide_check.collide(char, ch):
-        #         char.y = ch.oy + 87
-        #         char.jump = 0
-        #         char.jumpval = 0
 
 
         if collide_check.collide(char, ch):
