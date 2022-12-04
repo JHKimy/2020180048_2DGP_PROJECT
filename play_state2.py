@@ -175,7 +175,6 @@ def enter():
     collide_box_fall = Collide_box4(1000,0)
 
 
-
     brick1 = Brick(600, 250)
     brick2 = Brick(800, 200)
     brick3 = Brick(1000, 350)
@@ -403,103 +402,6 @@ def update():
         game_framework.change_state(gameover_image)
 
 
-
-
-    # # 굴뚝과 충돌처리
-    # for ch in chimneys:
-    #
-    #     # if char.y > ch.oy+30:
-    #     #     if collide_check.collide(char, ch):
-    #     #         char.y = ch.oy + 87
-    #     #         char.jump = 0
-    #     #         char.jumpval = 0
-    #
-    #     if collide_check.collide(char, ch):
-    #         if char.y < ch.oy:
-    #             char.dx = 0
-    #             if char.jump == 1:
-    #                 char.x = char.x - 1
-    #                 char.dx = 4
-    #
-    #             if char.face_dir == -1:
-    #                 char.dx = 4
-    #
-    #         if char.y > ch.oy:
-    #             char.jump = 0
-    #             char.jumpval = 0
-    #
-    #     # 굴뚝 위에서 밑으로 떨어질때
-    #     if collide_check.collide(char, ch):
-    #         if char.x > ch.ox + 40:
-    #             char.jump = -1
-    #
-    #     # 굴뚝의 오른쪽 통과 x
-    #     if collide_check.collide(char, ch):
-    #         if ch.oy > char.y:
-    #             if char.x > ch.ox + 40:
-    #                 char.dx = 0
-    #                 if char.state == 1:
-    #                     char.dx = 4
-    #                 if char.jump == 1:
-    #                     char.dx = 4
-    #
-    #     if collide_check.collide(char, ch):
-    #         if char.y > ch.oy:
-    #             if char.x < ch.ox - 50:
-    #                 char.jump = -1
-    #
-    #     # 굼바와 굴뚝 충돌처리
-    #     if collide_check.collide(enemy1, ch):
-    #         enemy1.dir = -1
-    #
-    #     # 굼바와 충돌박스 충돌처리
-    # if collide_check.collide(enemy1, collide_box):
-    #     enemy1.dir = 1
-    #     # 거북이와 충돌박스 충돌처리
-    # if collide_check.collide(enemy2, collide_box2):
-    #     enemy2.dir = -1
-    #     # 거북이와 충돌박스 충돌처리
-    # if collide_check.collide(enemy2, collide_box3):
-    #     enemy2.dir = 1
-    #
-    # if collide_check.collide(char, collide_box_fall):
-    #     game_framework.change_state(gameover_image)
-    #
-    # # # 아이템 박스 충돌처리
-    # # if char.y < itembox.oy:
-    # #     if collide_check.collide(char, itembox):
-    # #         char.jump = -1
-    # #         itembox.tick_Itembox = 1
-    # #
-    # # if collide_check.collide(char, itembox):
-    # #     if char.y > itembox.oy:
-    # #         char.jump = 0
-    # #         char.jumpval = 0
-    # #
-    # # if collide_check.collide(char, itembox):
-    # #     if char.x > itembox.ox + 25:
-    # #         char.jump = -1
-    # #     elif char.x < itembox.ox -35:
-    # #         char.jump =-1
-    # #
-    # # if itembox.tick_Itembox == 1:
-    # #     itembox.item()
-    # #     itembox.tick_Itembox = -1
-    # #
-    # # # 중간 뚫리는 버그 수정
-    # # if collide_check.collide(char, itembox):
-    # #     if char.y > itembox.oy + 20:
-    # #         char.y = itembox.oy + 55
-    # #     else:
-    # #         char.jump = -1
-    #
-    # if collide_check.collide(char, enemy1):
-    #     game_framework.change_state(gameover_image)
-    #
-    # # 깃발과 캐릭터 충돌처리
-    # if collide_check.collide(char, flag):
-    #     delay(0.5)
-    #     game_framework.change_state(finish_image)
 
 
 def draw_world():
