@@ -14,6 +14,8 @@ class Itembox:
         self.oy = y
         self.tick_Itembox = 0
         self.item_limit = 0
+        self.itembox_sound = load_wav('itembox.wav')
+        self.itembox_sound.set_volume(80)
 
     def update(self):
         if play_state.char.x > 400 and play_state.char.dir == 1:

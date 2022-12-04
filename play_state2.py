@@ -100,6 +100,7 @@ def handle_events():
 
 
             elif event.key == SDLK_c:
+                char.fire_sound.play()
                 char.attack = 1
                 char.fire_ball()
 
@@ -141,6 +142,8 @@ def enter():
 
     # 스테이지2의 마리오 초기화
     char = Mario()
+    char.dx = 0
+    char.x = 30
     char.y = 245
     char.gy = 30
     play_state.char.item_mario = 0
@@ -249,6 +252,7 @@ def enter():
 
 def exit():
     game_world.clear()
+    char.dx = 0
 
 
 def update():
@@ -274,8 +278,8 @@ def update():
             char.jump = -1
 
     # 떨어지면 게임 오버
-    # if collide_check.collide(char, collide_box_fall):
-    #     game_framework.change_state(gameover_image)
+    if collide_check.collide(char, collide_box_fall):
+        game_framework.change_state(gameover_image)
 
 
 

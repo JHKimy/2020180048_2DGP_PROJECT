@@ -15,6 +15,8 @@ class Item:
             self.image = load_image('item.png')
         self.x, self.y, self.velocity = x, y+25, velocity
 
+
+
     def draw(self):
         self.image.draw(self.x, self.y)
         #draw_rectangle(*self.get_bb())
@@ -34,11 +36,14 @@ class Item:
             if play_state.char.x >= self.x - 10 and play_state.char.y >= self.y:
                 game_world.remove_object(self)
                 play_state.char.item_mario = 1
+                play_state.char.item_sound.play()
+
 
         elif play_state.char.x > self.x:
             if play_state.char.x <= self.x + 10 and play_state.char.y >= self.y:
                 game_world.remove_object(self)
                 play_state.char.item_mario = 1
+                play_state.char.item_sound.play()
 
         # if play_state.char.x >= self.x - 10 and play_state.char.y >= self.y :
         #     if play_state.char.x < self.x

@@ -21,6 +21,7 @@ class Fireball:
 
         self.frame = 0
         self.state = 0
+
     def draw(self):
         if self.face_dir == -1:
             self.image.clip_draw(self.frame * 64, 0, 64, 64, self.x, self.y)

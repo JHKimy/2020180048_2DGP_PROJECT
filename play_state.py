@@ -113,6 +113,7 @@ def handle_events():
 
 
             elif event.key == SDLK_c:
+                    char.fire_sound.play()
                     char.attack = 1
                     char.fire_ball()
 
@@ -182,8 +183,7 @@ def enter():
     brick8 = Brick(3700, 400)
     brick_3n4 = Bricks3(3950,470)
 
-    #flag = Flag(3950,540)
-    flag = Flag(200,60)
+    flag = Flag(3950,540)
 
 
 
@@ -227,6 +227,7 @@ def enter():
 
 def exit():
     game_world.clear()
+    char.dx = 0
 
 
 def update():
@@ -384,6 +385,7 @@ def update():
         if collide_check.collide(char, itembox):
             char.jump = -1
             itembox.tick_Itembox = 1
+            itembox.itembox_sound.play()
 
     if collide_check.collide(char, itembox):
         if char.y > itembox.oy:

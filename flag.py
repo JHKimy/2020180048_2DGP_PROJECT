@@ -16,7 +16,7 @@ class Flag:
 
         if play_state.stage == 2:
             if play_state2.char.x > 400 and play_state2.char.dir == 1:
-                self.ox -= play_state.char.dx
+                self.ox -= play_state2.char.dx
             elif play_state2.char.x > 400 and play_state2.char.dir < 0:
                 self.ox += play_state2.char.dx
 

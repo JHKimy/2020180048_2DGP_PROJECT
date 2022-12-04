@@ -25,14 +25,18 @@ class Mario:
         self.item_mario = 0
         self.jump_sound = load_wav('jump.wav')
         self.jump_sound.set_volume(20)
+        self.fire_sound = load_wav('fireball.wav')
+        self.fire_sound.set_volume(70)
+
+        self.item_sound = load_wav('item.wav')
+        self.item_sound.set_volume(70)
+
         # self.is_jumping = 0   # 마리오가 점프중일때
         # self.mass = 7
         # self.velocity = 20
 
     def update(self):
         self.frame = (self.frame + 1) % 3
-
-
 
 
         if self.state == 2 or self.state == 3:

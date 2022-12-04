@@ -27,9 +27,6 @@ class Background:
                 self.x += play_state2.char.dx
 
 
-        if self.x == -2500:  # 맵에 캐릭터 dx값 계속 들어가서 -700되면 게임 끝
-            delay(1)
-            game_framework.change_state(finish_image)
 
 
 
