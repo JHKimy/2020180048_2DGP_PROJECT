@@ -1,8 +1,6 @@
 from pico2d import *
 import game_world
-import game_framework
 from fireball import Fireball
-import collide_check
 import play_state
 import play_state2
 

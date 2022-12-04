@@ -1,6 +1,5 @@
 from pico2d import *
 import game_framework
-import start_image
 import play_state
 import play_state2
 
