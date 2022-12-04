@@ -17,7 +17,9 @@ class Background:
         self.x = 5000//2
         self.y = 640//2
 
-
+        self.bgm = load_music('background_music.mp3')
+        self.bgm.set_volume(64)
+        self.bgm.repeat_play()
 
         #self.window_left = 0
 

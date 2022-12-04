@@ -6,7 +6,12 @@ image = None
 
 def enter():
     global image
+    global sound
     image = load_image('finish_image.png')
+    sound = load_music('clear.wav')
+    sound.set_volume(80)
+    sound.play()
+
 
 def exit():
     global image
@@ -27,7 +32,7 @@ def handle_events():
         elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
             game_framework.quit()
         elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
-            game_framework.change_state(play_state)
+            game_framework.quit()
 def update():
     pass
 

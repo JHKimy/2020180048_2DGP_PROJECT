@@ -4,6 +4,7 @@ import game_framework
 from fireball import Fireball
 import collide_check
 import play_state
+import play_state2
 
 
 class Mario:
@@ -22,6 +23,8 @@ class Mario:
         self.jumpval = 0
         self.attack = 0
         self.item_mario = 0
+        self.jump_sound = load_wav('jump.wav')
+        self.jump_sound.set_volume(20)
         # self.is_jumping = 0   # 마리오가 점프중일때
         # self.mass = 7
         # self.velocity = 20
@@ -63,10 +66,10 @@ class Mario:
                     self.state = 7
 
 
-            if self.y < 100:
+            if self.y < self.gy:
                 # self.is_jumping = 0  ################
                 self.jump = 0
-                self.y = 100
+                self.y = self.gy
                 self.jumpval = 0
                 # self.velocity = 20
 
@@ -81,8 +84,8 @@ class Mario:
                         self.state = 1
 
 
-        elif self.y < 100:
-            self.y = 100
+        elif self.y < self.gy:
+            self.y = self.gy
 
         # self.velocity -= 0.5
 
@@ -100,7 +103,7 @@ class Mario:
         else:
             self.image.clip_draw(100, self.state * 100, 100, 100, self.x, self.y)
 
-        if play_state.cb == 1:
+        if play_state.cb == 1 or play_state2.cb == 1:
             draw_rectangle(*self.get_bb()) # 충돌처리 사각형 그리기
 
     def fire_ball(self):

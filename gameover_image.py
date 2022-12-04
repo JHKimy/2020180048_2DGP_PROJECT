@@ -2,12 +2,18 @@ from pico2d import *
 import game_framework
 import start_image
 import play_state
+import play_state2
 
 image = None
 
 def enter():
     global image
+    global sound
     image = load_image('gameover.png')
+    sound = load_music('die.wav')
+    sound.set_volume(64)
+    sound.play()
+
 
 def exit():
     global image
@@ -28,6 +34,11 @@ def handle_events():
         elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
             game_framework.change_state(play_state)
             play_state.kk = None
+        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_2):
+            game_framework.change_state(play_state2)
+            play_state2.kk = None
+
+
 def update():
     pass
 

@@ -5,6 +5,7 @@ import game_world
 import collide_check
 import gameover_image
 import finish_image
+import play_state2
 
 
 
@@ -22,13 +23,24 @@ from flag import Flag
 from collide_box import Collide_box
 from collide_box import Collide_box2
 
-from fireball import Fireball
 
-from itemM import Item
+
+
+
+
+
 
 char = None
 back = None
 enemy1 = None
+
+
+
+#스테이지 정해주는 변수
+stage = 1
+
+
+
 
 # 콜리드 박스 확인하기위한 b키를 위한 변수
 cb = 0
@@ -43,6 +55,7 @@ def handle_events():
     global dir
     global state
     global cb
+    global stage
     events = get_events()
 
     for event in events:
@@ -85,6 +98,8 @@ def handle_events():
 
 
             elif event.key == SDLK_z:
+
+                char.jump_sound.play()
                 #char.is_jumping = 1
 
                 if char.jump == 0:
@@ -133,6 +148,7 @@ def enter():
 
     back = Background()
     char = Mario()
+    char.gy = 100
 
     enemy1 = Mushroom(500, 90)
     enemy2 = Turtle(2700,90)
@@ -165,7 +181,9 @@ def enter():
     brick7 = Brick(3500, 350)
     brick8 = Brick(3700, 400)
     brick_3n4 = Bricks3(3950,470)
-    flag = Flag(3950,540)
+
+    #flag = Flag(3950,540)
+    flag = Flag(200,60)
 
 
 
@@ -399,7 +417,7 @@ def update():
     # 깃발과 캐릭터 충돌처리
     if collide_check.collide(char, flag):
         delay(0.5)
-        game_framework.change_state(finish_image)
+        game_framework.change_state(play_state2)
 
 
 
