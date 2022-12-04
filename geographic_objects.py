@@ -1,9 +1,6 @@
 from pico2d import *
-import game_world
-import game_framework
 import play_state
 import play_state2
-from mario import Mario
 
 
 class Brick:
@@ -19,15 +16,11 @@ class Brick:
             self.ox += play_state.char.dx
 
 
-
-
         if play_state.stage == 2:
             if play_state2.char.x > 400 and play_state2.char.dir == 1:
                 self.ox -= play_state2.char.dx
             elif play_state2.char.x > 400 and play_state2.char.dir < 0:
                 self.ox += play_state2.char.dx
-
-
 
 
     def draw(self):

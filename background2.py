@@ -1,7 +1,5 @@
 from pico2d import *
-import game_framework
 import play_state2
-import finish_image
 
 class Background:
     def __init__(self):
@@ -28,10 +26,5 @@ class Background:
 
 
 
-
-
-
     def draw(self):
-        #self.image.clip_draw_to_origin(self.window_left, 0, 800, 640, 0, 0)
-        #self.image.draw(800//2, 640//2)
         self.image.draw(self.x, self.y, self.width, self.height)
