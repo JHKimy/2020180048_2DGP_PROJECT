@@ -57,24 +57,22 @@ def handle_events():
 
         elif event.type == SDL_KEYDOWN:
 
-            # if event.key == SDLK_RIGHT and char.is_jumping != 1:
             if event.key == SDLK_RIGHT:
                 char.dir = 1
                 char.state = 1
                 char.face_dir = 1
 
-                if char.jump == 1:  #######################
+                if char.jump == 1:
                     char.state = 5
                     char.dir = 1
                     char.face_dir = 1
 
-            # elif event.key == SDLK_LEFT and char.is_jumping != 1:
             elif event.key == SDLK_LEFT:
                 char.dir = -1
                 char.state = 0
                 char.face_dir = -1
 
-                if char.jump == 1:  #######################
+                if char.jump == 1:
                     char.state = 4
                     char.dir = -1
                     char.face_dir = -1

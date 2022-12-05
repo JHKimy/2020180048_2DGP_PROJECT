@@ -7,7 +7,7 @@ image = None
 
 def enter():
 
-    play_state.kk = 0 ####
+    play_state.kk = 0
     global image
     global sound
     image = load_image('gameover.png')

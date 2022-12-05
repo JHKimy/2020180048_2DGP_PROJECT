@@ -301,7 +301,6 @@ def update():
             else:
                 char.jump = -1
 
-        # 점프 후 착지 모습 버그 수정
 
 
 

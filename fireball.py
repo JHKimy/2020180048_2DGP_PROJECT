@@ -1,6 +1,5 @@
 from pico2d import *
 import game_world
-#from mario import Mario
 import play_state
 import play_state2
 import collide_check
@@ -58,17 +57,6 @@ class Fireball:
                 play_state2.kk = 4
 
 
-        # if play_state.stage == 2:
-        #     if collide_check.collide(self, play_state2.enemy1):
-        #         game_world.remove_object(self)
-        #         play_state2.kk = 1
-        #     if collide_check.collide(self, play_state2.enemy2):
-        #         game_world.remove_object(self)
-        #         play_state2.kk = 2
-
-
-        # if self.x > play_state.enemy1.mx :
-        #     game_world.remove_object(play_state.enemy1)
 
         self.x += self.velocity
 

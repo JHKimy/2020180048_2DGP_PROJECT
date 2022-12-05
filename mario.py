@@ -29,10 +29,6 @@ class Mario:
         self.item_sound = load_wav('item.wav')
         self.item_sound.set_volume(70)
 
-        # self.is_jumping = 0   # 마리오가 점프중일때
-        # self.mass = 7
-        # self.velocity = 20
-
     def update(self):
         self.frame = (self.frame + 1) % 3
 
@@ -51,17 +47,11 @@ class Mario:
             if self.jumpval > 200:
                 self.jumpval = 200
                 self.jump = -1
-            # self.y += (self.mass * self.velocity * self.velocity) * 0.01
-            # if self.velocity <= 0:
-            #     self.jump = -1
-
 
         elif self.jump == -1:
-            # self.y -= (self.mass * self.velocity * self.velocity) * 0.01
             self.y -= 6
             self.jumpval -= 6
             if self.jumpval < 160:
-                # self. is_jumping = 0  ################
                 if self.state == 4:
                     self.state = 6
                 elif self.state == 5:
@@ -69,7 +59,6 @@ class Mario:
 
 
             if self.y < self.gy:
-                # self.is_jumping = 0  ################
                 self.jump = 0
                 self.y = self.gy
                 self.jumpval = 0
@@ -89,7 +78,6 @@ class Mario:
         elif self.y < self.gy:
             self.y = self.gy
 
-        # self.velocity -= 0.5
 
     def draw(self):
 

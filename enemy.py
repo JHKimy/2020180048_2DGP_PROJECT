@@ -1,6 +1,5 @@
 from pico2d import *
 
-import game_framework
 import game_world
 import play_state
 import play_state2
@@ -22,11 +21,9 @@ class Mushroom:
         self.moving = 0
         self.hit_sound = load_wav('hit.wav')
         self.hit_sound.set_volume(70)
-        #self.cx = self.mx - background.Background.window_left
 
     def update(self):
         self.frame = (self.frame+1) % 12
-########################################
         if play_state.kk == 1 or play_state2.kk == 1:
             self.hit_sound.play()
             game_world.remove_object(self)
@@ -40,7 +37,6 @@ class Mushroom:
         elif play_state.char.x > 400 and play_state.char.dir < 0:
             self.mx += play_state.char.dx
 
-        #####################
         if play_state.stage == 2:
             if play_state2.char.x > 400 and play_state2.char.dir == 1:
                 self.mx -= play_state2.char.dx
@@ -71,7 +67,6 @@ class Turtle:
         self.moving = 0
         self.hit_sound = load_wav('hit.wav')
         self.hit_sound.set_volume(70)
-            # self.cx = self.mx - background.Background.window_left
 
     def update(self):
         self.frame = (self.frame + 1) % 12
